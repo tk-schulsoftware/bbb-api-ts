@@ -1,6 +1,6 @@
 import { constructUrl } from "./util";
 
-function monitoring(options: {
+export default function monitoring(options: {
 	salt: string;
 	hashMethod: string;
 	host: string;
@@ -30,5 +30,3 @@ function monitoring(options: {
 		getMeetings,
 	};
 }
-
-module.exports = monitoring;

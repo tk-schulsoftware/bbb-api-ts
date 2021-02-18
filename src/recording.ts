@@ -1,6 +1,6 @@
 import { constructUrl } from "./util";
 
-function recording(options: {
+export default function recording(options: {
 	salt: string;
 	hashMethod: string;
 	host: string;
@@ -39,5 +39,3 @@ function recording(options: {
 		updateRecordings,
 	};
 }
-
-module.exports = recording;

@@ -1,6 +1,6 @@
 import { constructUrl } from "./util";
 
-function hooks(options: { salt: string; hashMethod: string; host: string }) {
+export default function hooks(options: { salt: string; hashMethod: string; host: string }) {
 	function create(callbackURL: string, kwparams: any) {
 		kwparams = { ...kwparams };
 		kwparams.callbackURL = callbackURL;
@@ -23,5 +23,3 @@ function hooks(options: { salt: string; hashMethod: string; host: string }) {
 		list,
 	};
 }
-
-module.exports = hooks;

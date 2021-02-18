@@ -1,6 +1,6 @@
 import { constructUrl } from "./util";
 
-function administration(options: {
+export default function administration(options: {
 	salt: string;
 	hashMethod: string;
 	host: string;
@@ -38,5 +38,3 @@ function administration(options: {
 		end,
 	};
 }
-
-module.exports = administration;
