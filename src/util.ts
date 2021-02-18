@@ -3,13 +3,22 @@ import querystring from "querystring";
 import crypto from "crypto";
 import parser from "fast-xml-parser";
 
-function getChecksum(callName: string, queryParams: querystring.ParsedUrlQueryInput, sharedSecret: string, hashMethod: string = "sha1") {
+function getChecksum(
+	callName: string,
+	queryParams: querystring.ParsedUrlQueryInput,
+	sharedSecret: string,
+	hashMethod: string = "sha1"
+) {
 	return crypto[hashMethod]()
 		.update(`${callName}${querystring.encode(queryParams)}${sharedSecret}`)
 		.digest("hex");
 }
 
-export function constructUrl(options: { salt?: string; hashMethod?: string; host?: string; }, action: string, params: querystring.ParsedUrlQueryInput) {
+export function constructUrl(
+	options: { salt?: string; hashMethod?: string; host?: string },
+	action: string,
+	params: querystring.ParsedUrlQueryInput
+) {
 	params.checksum = getChecksum(
 		action,
 		params,

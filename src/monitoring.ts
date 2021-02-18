@@ -1,6 +1,10 @@
 import { constructUrl } from "./util";
 
-function monitoring(options: { salt: string; hashMethod: string; host: string; }) {
+function monitoring(options: {
+	salt: string;
+	hashMethod: string;
+	host: string;
+}) {
 	function getMeetingInfo(meetingID: string) {
 		let qparams = {
 			meetingID: meetingID,

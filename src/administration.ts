@@ -1,6 +1,10 @@
 import { constructUrl } from "./util";
 
-function administration(options: { salt: string; hashMethod: string; host: string; }) {
+function administration(options: {
+	salt: string;
+	hashMethod: string;
+	host: string;
+}) {
 	function create(name: string, id: string, kwparams: any) {
 		kwparams = { ...kwparams };
 		kwparams.name = name;
@@ -8,7 +12,12 @@ function administration(options: { salt: string; hashMethod: string; host: strin
 
 		return constructUrl(options, "create", kwparams);
 	}
-	function join(fullName: string, meetingID: string, password: string, kwparams: any) {
+	function join(
+		fullName: string,
+		meetingID: string,
+		password: string,
+		kwparams: any
+	) {
 		kwparams = { ...kwparams };
 		kwparams.fullName = fullName;
 		kwparams.meetingID = meetingID;
