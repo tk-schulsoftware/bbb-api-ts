@@ -1,12 +1,10 @@
-'use strict'
-
-const util = require('./util')
+import {constructUrl} from "./util";
 
 function recording(options) {
   function getRecordings(kwparams) {
     kwparams = { ...kwparams }
 
-    return util.constructUrl(options, 'getRecordings', kwparams)
+    return constructUrl(options, 'getRecordings', kwparams)
   }
   function publishRecordings(recordID, publish) {
     let qparams = {
@@ -14,21 +12,21 @@ function recording(options) {
       publish: publish,
     }
 
-    return util.constructUrl(options, 'publishRecordings', qparams)
+    return constructUrl(options, 'publishRecordings', qparams)
   }
   function deleteRecordings(recordID) {
     let qparams = {
       recordID: recordID,
     }
 
-    return util.constructUrl(options, 'deleteRecordings', qparams)
+    return constructUrl(options, 'deleteRecordings', qparams)
   }
   function updateRecordings(recordID, kwparams) {
     kwparams = { ...kwparams }
 
     kwparams.recordID = recordID
 
-    return util.constructUrl(options, 'updateRecordings', kwparams)
+    return constructUrl(options, 'updateRecordings', kwparams)
   }
   return {
     getRecordings,
@@ -38,4 +36,4 @@ function recording(options) {
   }
 }
 
-module.exports = recording
+module.exports = recording;

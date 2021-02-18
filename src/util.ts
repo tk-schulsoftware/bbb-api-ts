@@ -1,9 +1,7 @@
-'use strict'
-
-const axios = require('axios')
-const querystring = require('querystring')
-const crypto = require('hash.js')
-const parser = require('fast-xml-parser')
+import axios from "axios";
+import querystring from "querystring";
+import crypto from "crypto";
+import parser from "fast-xml-parser";
 
 function getChecksum(callName, queryParams, sharedSecret, hashMethod = 'sha1') {
   return crypto[hashMethod]()
@@ -11,12 +9,12 @@ function getChecksum(callName, queryParams, sharedSecret, hashMethod = 'sha1') {
     .digest('hex')
 }
 
-function constructUrl(options, action, params) {
+export function constructUrl(options, action, params) {
   params.checksum = getChecksum(action, params, options.salt, options.hashMethod)
   return `${options.host}/api/${action}?${querystring.encode(params)}`
 }
 
-function httpClient(url) {
+export function httpClient(url) {
   return axios(url, {
     headers: { Accept: 'text/xml, application/json, text/plain, */*' },
   })
@@ -28,15 +26,15 @@ function httpClient(url) {
     })
 }
 
-function normalizeUrl(url) {
+export function normalizeUrl(url: string) {
   return /\/$/.test(url) ? url.slice(0, -1) : url
 }
 
-function getPathname(url, host) {
+export function getPathname(url: string, host: string) {
   return url.replace(host, '')
 }
 
-function parseXml(xml) {
+export function parseXml(xml: string) {
   const json = parser.parse(xml).response
 
   if(json.meetings) {
@@ -50,12 +48,4 @@ function parseXml(xml) {
     json.recordings = recordings
   }
   return json
-}
-
-module.exports = {
-  httpClient,
-  constructUrl,
-  normalizeUrl,
-  getPathname,
-  parseXml,
 }

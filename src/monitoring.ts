@@ -1,6 +1,4 @@
-'use strict'
-
-const util = require('./util')
+import {constructUrl} from "./util";
 
 function monitoring(options) {
   function getMeetingInfo(meetingID) {
@@ -8,19 +6,19 @@ function monitoring(options) {
       meetingID: meetingID,
     }
 
-    return util.constructUrl(options, 'getMeetingInfo', qparams)
+    return constructUrl(options, 'getMeetingInfo', qparams)
   }
   function isMeetingRunning(meetingID) {
     let qparams = {
       meetingID: meetingID,
     }
 
-    return util.constructUrl(options, 'isMeetingRunning', qparams)
+    return constructUrl(options, 'isMeetingRunning', qparams)
   }
   function getMeetings() {
     let qparams = {}
 
-    return util.constructUrl(options, 'getMeetings', qparams)
+    return constructUrl(options, 'getMeetings', qparams)
   }
   return {
     getMeetingInfo,
@@ -29,4 +27,4 @@ function monitoring(options) {
   }
 }
 
-module.exports = monitoring
+module.exports = monitoring;

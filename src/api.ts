@@ -1,10 +1,14 @@
-'use strict'
+import {normalizeUrl} from "./util";
 
-let { normalizeUrl } = require('./util')
+type ApiOptions = {
+    host?: string;
+    salt?: string;
+};
 
-function api(host, salt, options = {}) {
+export function api(host: string, salt: string, options: ApiOptions = {}) {
   options.host = normalizeUrl(host)
   options.salt = salt
+
 
   let administration = require('./administration')(options)
   let monitoring = require('./monitoring')(options)
@@ -17,8 +21,4 @@ function api(host, salt, options = {}) {
     recording,
     hooks,
   }
-}
-
-module.exports = {
-  api,
 }
