@@ -1,23 +1,23 @@
 import axios from "axios";
-import querystring from "querystring";
-import crypto from "crypto";
-import parser from "fast-xml-parser";
+import { encode } from "querystring";
+import * as crypto from "crypto";
+import * as parser from "fast-xml-parser";
 
 function getChecksum(
 	callName: string,
-	queryParams: querystring.ParsedUrlQueryInput,
+	queryParams: any,
 	sharedSecret: string,
 	hashMethod: string = "sha1"
 ) {
 	return crypto[hashMethod]()
-		.update(`${callName}${querystring.encode(queryParams)}${sharedSecret}`)
+		.update(`${callName}${encode(queryParams)}${sharedSecret}`)
 		.digest("hex");
 }
 
 export function constructUrl(
 	options: { salt?: string; hashMethod?: string; host?: string },
 	action: string,
-	params: querystring.ParsedUrlQueryInput
+	params: any
 ) {
 	params.checksum = getChecksum(
 		action,
@@ -25,7 +25,7 @@ export function constructUrl(
 		options.salt,
 		options.hashMethod
 	);
-	return `${options.host}/api/${action}?${querystring.encode(params)}`;
+	return `${options.host}/api/${action}?${encode(params)}`;
 }
 
 export function httpClient(url: string) {
