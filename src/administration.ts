@@ -1,14 +1,14 @@
 import { constructUrl } from "./util";
 
-function administration(options) {
-	function create(name, id, kwparams) {
+function administration(options: { salt: string; hashMethod: string; host: string; }) {
+	function create(name: string, id: string, kwparams: any) {
 		kwparams = { ...kwparams };
 		kwparams.name = name;
 		kwparams.meetingID = id;
 
 		return constructUrl(options, "create", kwparams);
 	}
-	function join(fullName, meetingID, password, kwparams) {
+	function join(fullName: string, meetingID: string, password: string, kwparams: any) {
 		kwparams = { ...kwparams };
 		kwparams.fullName = fullName;
 		kwparams.meetingID = meetingID;
@@ -16,7 +16,7 @@ function administration(options) {
 
 		return constructUrl(options, "join", kwparams);
 	}
-	function end(meetingID, password) {
+	function end(meetingID: string, password: string) {
 		let kwparams = {
 			meetingID: meetingID,
 			password: password,

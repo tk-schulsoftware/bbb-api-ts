@@ -3,13 +3,13 @@ import querystring from "querystring";
 import crypto from "crypto";
 import parser from "fast-xml-parser";
 
-function getChecksum(callName, queryParams, sharedSecret, hashMethod = "sha1") {
+function getChecksum(callName: string, queryParams: querystring.ParsedUrlQueryInput, sharedSecret: string, hashMethod: string = "sha1") {
 	return crypto[hashMethod]()
 		.update(`${callName}${querystring.encode(queryParams)}${sharedSecret}`)
 		.digest("hex");
 }
 
-export function constructUrl(options, action, params) {
+export function constructUrl(options: { salt?: string; hashMethod?: string; host?: string; }, action: string, params: querystring.ParsedUrlQueryInput) {
 	params.checksum = getChecksum(
 		action,
 		params,
@@ -19,7 +19,7 @@ export function constructUrl(options, action, params) {
 	return `${options.host}/api/${action}?${querystring.encode(params)}`;
 }
 
-export function httpClient(url) {
+export function httpClient(url: string) {
 	return axios(url, {
 		headers: { Accept: "text/xml, application/json, text/plain, */*" },
 	})
@@ -39,7 +39,7 @@ export function getPathname(url: string, host: string) {
 	return url.replace(host, "");
 }
 
-export function parseXml(xml: string) {
+export function parseXml(xml: string): JSON {
 	const json = parser.parse(xml).response;
 
 	if (json.meetings) {

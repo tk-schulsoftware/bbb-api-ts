@@ -1,14 +1,14 @@
 import { constructUrl } from "./util";
 
-function monitoring(options) {
-	function getMeetingInfo(meetingID) {
+function monitoring(options: { salt: string; hashMethod: string; host: string; }) {
+	function getMeetingInfo(meetingID: string) {
 		let qparams = {
 			meetingID: meetingID,
 		};
 
 		return constructUrl(options, "getMeetingInfo", qparams);
 	}
-	function isMeetingRunning(meetingID) {
+	function isMeetingRunning(meetingID: string) {
 		let qparams = {
 			meetingID: meetingID,
 		};

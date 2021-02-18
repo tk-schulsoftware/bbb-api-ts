@@ -1,12 +1,12 @@
 import { constructUrl } from "./util";
 
-function recording(options) {
-	function getRecordings(kwparams) {
+function recording(options: { salt: string; hashMethod: string; host: string; }) {
+	function getRecordings(kwparams: any) {
 		kwparams = { ...kwparams };
 
 		return constructUrl(options, "getRecordings", kwparams);
 	}
-	function publishRecordings(recordID, publish) {
+	function publishRecordings(recordID: string, publish) {
 		let qparams = {
 			recordID: recordID,
 			publish: publish,
@@ -14,14 +14,14 @@ function recording(options) {
 
 		return constructUrl(options, "publishRecordings", qparams);
 	}
-	function deleteRecordings(recordID) {
+	function deleteRecordings(recordID: string) {
 		let qparams = {
 			recordID: recordID,
 		};
 
 		return constructUrl(options, "deleteRecordings", qparams);
 	}
-	function updateRecordings(recordID, kwparams) {
+	function updateRecordings(recordID: string, kwparams) {
 		kwparams = { ...kwparams };
 
 		kwparams.recordID = recordID;
