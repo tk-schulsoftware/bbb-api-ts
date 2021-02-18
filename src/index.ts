@@ -1,8 +1,6 @@
-import * as util from "./util";
-import * as api from "./api";
+import * as utilMod from "./util";
+import * as apiMod from "./api";
 
-module.exports = {
-	api: api.api,
-	http: util.httpClient,
-	util,
-};
+export const api = apiMod.api;
+export const http = utilMod.httpClient;
+export const util = utilMod;
