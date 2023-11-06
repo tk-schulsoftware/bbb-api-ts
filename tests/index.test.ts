@@ -9,14 +9,11 @@ const http = bbb.http;
 
 describe("Hooks Module Tests", () => {
   let hookID;
-  before(function () {
-    this.timeout(TEST_HOOKS_TIMEOUT);
-    return http(api.hooks.create("https://mysite.com")).then((response) => {
-      hookID = response.hookID;
-    });
+  beforeAll(async () => {
+    const response = await http(api.hooks.create("https://mysite.com"));
+    hookID = response.hookID;
   });
-  after(function () {
-    this.timeout(TEST_HOOKS_TIMEOUT);
+  afterAll(() => {
     return http(api.hooks.destroy(hookID));
   });
 
@@ -29,15 +26,13 @@ describe("Hooks Module Tests", () => {
 });
 
 describe("Administration and Monitoring Modules Tests", () => {
-  before(function () {
-    this.timeout(TEST_HOOKS_TIMEOUT);
+  beforeAll(() => {
     return http(
-      api.administration.create("Test Meeting", "42", { duration: 1 }),
+      api.administration.create("Test Meeting", "42", { duration: "1" }),
     );
   });
-  after(function () {
-    this.timeout(TEST_HOOKS_TIMEOUT);
-    return http(api.administration.end("42"));
+  afterAll(() => {
+    return http(api.administration.end("42", ""));
   });
 
   it("Get Meetings", () => {
