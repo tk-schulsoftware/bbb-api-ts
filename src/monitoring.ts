@@ -1,32 +1,32 @@
 import { constructUrl } from "./util";
+import { ApiOptions } from "./api";
 
-export default function monitoring(options: {
-	salt: string;
-	hashMethod: string;
-	host: string;
-}) {
-	function getMeetingInfo(meetingID: string) {
-		let qparams = {
-			meetingID: meetingID,
-		};
+export function monitoring(options: ApiOptions) {
+  function getMeetingInfo(meetingID: string) {
+    const qparams = {
+      meetingID,
+    };
 
-		return constructUrl(options, "getMeetingInfo", qparams);
-	}
-	function isMeetingRunning(meetingID: string) {
-		let qparams = {
-			meetingID: meetingID,
-		};
+    return constructUrl(options, "getMeetingInfo", qparams);
+  }
 
-		return constructUrl(options, "isMeetingRunning", qparams);
-	}
-	function getMeetings() {
-		let qparams = {};
+  function isMeetingRunning(meetingID: string) {
+    const qparams = {
+      meetingID,
+    };
 
-		return constructUrl(options, "getMeetings", qparams);
-	}
-	return {
-		getMeetingInfo,
-		isMeetingRunning,
-		getMeetings,
-	};
+    return constructUrl(options, "isMeetingRunning", qparams);
+  }
+
+  function getMeetings() {
+    const qparams = {};
+
+    return constructUrl(options, "getMeetings", qparams);
+  }
+
+  return {
+    getMeetingInfo,
+    isMeetingRunning,
+    getMeetings,
+  };
 }

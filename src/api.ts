@@ -1,23 +1,30 @@
 import { normalizeUrl } from "./util";
+import { monitoring } from "./monitoring";
+import { recording } from "./recording";
+import { hooks } from "./hooks";
+import { administration } from "./administration";
 
-type ApiOptions = {
-	host?: string;
-	salt?: string;
+export type ApiOptions = {
+  host: string;
+  salt: string;
+  hashMethod: string;
 };
 
-export function api(host: string, salt: string, options: ApiOptions = {}) {
-	options.host = normalizeUrl(host);
-	options.salt = salt;
+export function api(
+  host: string,
+  salt: string,
+  options: Pick<ApiOptions, "hashMethod">,
+) {
+  const fullOptions = {
+    host: normalizeUrl(host),
+    salt,
+    ...options,
+  };
 
-	let administration = require("./administration")(options);
-	let monitoring = require("./monitoring")(options);
-	let recording = require("./recording")(options);
-	let hooks = require("./hooks")(options);
-
-	return {
-		administration,
-		monitoring,
-		recording,
-		hooks,
-	};
+  return {
+    administration: administration(fullOptions),
+    monitoring: monitoring(fullOptions),
+    recording: recording(fullOptions),
+    hooks: hooks(fullOptions),
+  };
 }

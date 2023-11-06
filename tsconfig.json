@@ -1,12 +1,7 @@
 {
-    "compilerOptions": {
-      "esModuleInterop": true,
-      "module": "commonjs",
-      "target": "es2017",
-      "declaration": true,
-      "outDir": "./dist"
-    },
-    "include": [
-      "src/**/*"
-    ]
+  "extends": "./node_modules/kcd-scripts/shared-tsconfig.json",
+  "compilerOptions": {
+    "target": "ES6",
+    "strictNullChecks": true
+  }
 }
